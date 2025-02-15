@@ -7,7 +7,7 @@ export interface Movie {
 }
 
 export interface MovieDetails extends Movie {
-  box_office: number;
+  box_office: string;
   cinematographers: string[];
   poster: string;
   producers: string[];
