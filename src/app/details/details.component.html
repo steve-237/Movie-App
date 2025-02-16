@@ -1,12 +1,13 @@
-<h1>{{ movie()?.title }}</h1>
+@let movie = movie$ | async;
+<h1>{{ movie?.title }}</h1>
 <div class="details">
-  @if (movie()?.poster) {
-  <img [ngSrc]="movie()?.poster || ''" width="300" height="100" alt="Poster" />
+  @if (movie?.poster) {
+  <img [ngSrc]="movie?.poster || ''" width="300" height="100" alt="Poster" />
   }
   <div>
     <p>
       <span>Summary: </span>
-      <span>{{ movie()?.summary }}</span>
+      <span>{{ movie?.summary }}</span>
     </p>
   </div>
 </div>
@@ -25,12 +26,12 @@
   </thead>
   <tbody>
     <tr>
-      <td data-label="Box office">{{ movie()?.box_office ?? "" | millionDollar }}</td>
-      <td data-label="Budget">{{ movie()?.budget ?? "" | millionDollar }}</td>
-      <td data-label="Duration">{{ movie()?.duration ?? "" | minToDuration }}</td>
-      <td data-label="Producers">{{ movie()?.producers?.join(", ") }}</td>
+      <td data-label="Box office">{{ movie?.box_office ?? "" | millionDollar }}</td>
+      <td data-label="Budget">{{ movie?.budget ?? "" | millionDollar }}</td>
+      <td data-label="Duration">{{ movie?.duration ?? "" | minToDuration }}</td>
+      <td data-label="Producers">{{ movie?.producers?.join(", ") }}</td>
       <td data-label="Cinematographers">
-        {{ movie()?.cinematographers?.join(", ") }}
+        {{ movie?.cinematographers?.join(", ") }}
       </td>
     </tr>
   </tbody>
