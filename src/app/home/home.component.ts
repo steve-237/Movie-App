@@ -14,6 +14,11 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  protected moviesService = inject(MoviesService);
   protected movies$: Observable<Movie[]> = inject(MoviesService).getMovies();
   protected favoriteService = inject(FavoritesService);
+
+  filter(title: string, year: string) {
+    this.movies$ = this.moviesService.filterMovieList(title, year);
+  }
 }
