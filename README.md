@@ -25,7 +25,7 @@ Movie-App is a web application that displays a list of movies and allows users t
 
 ## Movie Details Display:
 
-- Clicking on a movie from the list provides detailed information, such as the synopsis, cast, genre, and more.
+- Clicking on a movie from the list provides detailed information.
 
 - A movie poster or related images are also displayed.
 
