@@ -6,10 +6,11 @@ import { MovieItemComponent } from '../movie-item/movie-item.component';
 import { HighlightDirective } from '../directives/highlight.directive';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-home',
-  imports: [MovieItemComponent, HighlightDirective, AsyncPipe],
+  imports: [MovieItemComponent, HighlightDirective, AsyncPipe, TranslocoPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
