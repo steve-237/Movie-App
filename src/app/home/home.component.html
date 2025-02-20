@@ -1,5 +1,13 @@
 <div class="container">
-  <h1>{{'name' | transloco}}</h1>
+  <div style="display: flex; flex-direction: row; justify-content: space-between;">
+    <h1>{{ "name" | transloco }}</h1>
+    <select #lang (change)="changeLanguage(lang.value)">
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+    </select>
+  </div>
+
   <form>
     <fieldset>
       <legend>Filters</legend>

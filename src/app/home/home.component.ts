@@ -6,7 +6,7 @@ import { MovieItemComponent } from '../movie-item/movie-item.component';
 import { HighlightDirective } from '../directives/highlight.directive';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-home',
@@ -18,8 +18,13 @@ export class HomeComponent {
   protected moviesService = inject(MoviesService);
   protected movies$: Observable<Movie[]> = inject(MoviesService).getMovies();
   protected favoriteService = inject(FavoritesService);
+  protected translocoService = inject(TranslocoService)
 
   filter(title: string, year: string) {
     this.movies$ = this.moviesService.filterMovieList(title, year);
+  }
+
+  changeLanguage(lang: string) {
+    this.translocoService.setActiveLang(lang);
   }
 }
