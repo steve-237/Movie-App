@@ -1,11 +1,7 @@
 <div class="container">
   <div style="display: flex; flex-direction: row; justify-content: space-between;">
     <h1>{{ "name" | transloco }}</h1>
-    <select #lang (change)="changeLanguage(lang.value)">
-      <option value="en">English</option>
-      <option value="fr">Français</option>
-      <option value="de">Deutsch</option>
-    </select>
+    <app-language-selector></app-language-selector>
   </div>
 
   <form>

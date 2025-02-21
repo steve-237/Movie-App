@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MillionDollarPipe } from '../pipes/million-dollar.pipe';
 import { MinToDurationPipe } from '../pipes/min-to-duration.pipe';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { LanguageSelectorComponent } from "../language-selector/language-selector.component";
 
 @Component({
   selector: 'app-details',
@@ -12,8 +13,9 @@ import { AsyncPipe, NgOptimizedImage } from '@angular/common';
     NgOptimizedImage,
     MillionDollarPipe,
     MinToDurationPipe,
-    AsyncPipe
-  ],
+    AsyncPipe,
+    LanguageSelectorComponent
+],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
