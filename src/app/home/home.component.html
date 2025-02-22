@@ -1,11 +1,13 @@
 <div class="container">
-  <div style="display: flex; flex-direction: row; justify-content: space-between;">
+  <div
+    style="display: flex; flex-direction: row; justify-content: space-between"
+  >
     <h1>{{ "name" | transloco }}</h1>
     <app-language-selector></app-language-selector>
   </div>
 
   <div>
-    <a [routerLink]="'favorite'">Favorites Movies</a>
+    <button (click)="toggleFavoriteMode()">{{isFavoriteMode() ? 'Back to movies' : 'Favorites Movies'}}</button>
   </div>
 
   <form>
@@ -27,12 +29,21 @@
       />
     </fieldset>
   </form>
-  @for(movie of movies$ | async; track movie.id) {
+
+  @if(isFavoriteMode()) { @for(favoriteMovie of favoriteService.getFavorites();
+  track favoriteMovie.id) {
+  <app-movie-item
+    [movie]="favoriteMovie"
+    appHighlight
+    [isFavorite]="favoriteService.isFavorite(favoriteMovie)"
+    (toggleFavorite)="favoriteService.toggleFavorite(favoriteMovie)"
+  />
+  } } @else { @for(movie of movies$ | async; track movie.id) {
   <app-movie-item
     [movie]="movie"
     appHighlight
     [isFavorite]="favoriteService.isFavorite(movie)"
     (toggleFavorite)="favoriteService.toggleFavorite(movie)"
   />
-  }
+  } }
 </div>

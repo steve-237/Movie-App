@@ -1,4 +1,4 @@
-import { Component, inject, Signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MoviesService } from '../services/movies.service';
 import { FavoritesService } from '../services/favorites.service';
 import { Movie } from '../model/movie.model';
@@ -8,11 +8,10 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { LanguageSelectorComponent } from "../language-selector/language-selector.component";
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [MovieItemComponent, HighlightDirective, AsyncPipe, TranslocoPipe, LanguageSelectorComponent, RouterLink],
+  imports: [MovieItemComponent, HighlightDirective, AsyncPipe, TranslocoPipe, LanguageSelectorComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -20,9 +19,14 @@ export class HomeComponent {
   protected moviesService = inject(MoviesService);
   protected movies$: Observable<Movie[]> = inject(MoviesService).getMovies();
   protected favoriteService = inject(FavoritesService);
-  protected translocoService = inject(TranslocoService)
+  protected translocoService = inject(TranslocoService);
+  protected isFavoriteMode = signal(false);
 
   filter(title: string, year: string) {
     this.movies$ = this.moviesService.filterMovieList(title, year);
+  }
+
+  toggleFavoriteMode() {
+    this.isFavoriteMode.set(!this.isFavoriteMode());
   }
 }
