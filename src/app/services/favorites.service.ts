@@ -1,5 +1,5 @@
 import { Movie } from './../model/movie.model';
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { Injectable, Signal, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +21,9 @@ export class FavoritesService {
 
   isFavorite(movie: Movie): boolean {
     return this.favorites().find((m) => (m.id === movie.id)) != null;
+  }
+
+  getFavorites(): Movie[] {
+    return this.favorites();
   }
 }

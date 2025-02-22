@@ -1,0 +1,8 @@
+@for(favorite of favoritesService.getFavorites(); track favorite.id) {
+<app-movie-item
+  [movie]="favorite"
+  appHighlight
+  [isFavorite]="favoritesService.isFavorite(favorite)"
+  (toggleFavorite)="favoritesService.toggleFavorite(favorite)"
+/>
+}

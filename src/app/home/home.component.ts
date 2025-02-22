@@ -8,10 +8,11 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { LanguageSelectorComponent } from "../language-selector/language-selector.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [MovieItemComponent, HighlightDirective, AsyncPipe, TranslocoPipe, LanguageSelectorComponent],
+  imports: [MovieItemComponent, HighlightDirective, AsyncPipe, TranslocoPipe, LanguageSelectorComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
