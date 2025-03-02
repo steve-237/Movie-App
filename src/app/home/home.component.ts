@@ -5,13 +5,13 @@ import { Movie } from '../model/movie.model';
 import { MovieItemComponent } from '../movie-item/movie-item.component';
 import { HighlightDirective } from '../directives/highlight.directive';
 import { Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { LanguageSelectorComponent } from "../language-selector/language-selector.component";
 
 @Component({
   selector: 'app-home',
-  imports: [MovieItemComponent, HighlightDirective, AsyncPipe, TranslocoPipe, LanguageSelectorComponent],
+  imports: [MovieItemComponent, HighlightDirective, AsyncPipe, TranslocoPipe, LanguageSelectorComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

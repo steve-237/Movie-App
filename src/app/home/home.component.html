@@ -6,12 +6,34 @@
     <app-language-selector></app-language-selector>
   </div>
 
-  <div class="btn-container">
-    <button (click)="isFavoriteMode.set(false)">{{'Movies Lists'}}</button>
-    <button (click)="isFavoriteMode.set(true)">{{'Favorites Movies'}}</button>
+  <div class="bg-gray-300 py-5">
+
+    <div class="bg-white w-80 text-center container rounded mx-auto">
+      <button
+        class="rounded transition-all duration-200"
+        [ngClass]="{
+          'bg-gray-300 text-slate-900': !isFavoriteMode(),
+          'bg-transparent text-slate-900': isFavoriteMode()
+        }"
+        (click)="isFavoriteMode.set(false)"
+      >
+        {{ "Movies Lists" }}
+      </button>
+      <button
+        class="rounded transition-all duration-200"
+        [ngClass]="{
+          'bg-gray-300 text-slate-900': isFavoriteMode(),
+          'bg-transparent text-slate-900': !isFavoriteMode()
+        }"
+        (click)="isFavoriteMode.set(true)"
+      >
+        {{ "Favorites Movies" }}
+      </button>
+    </div>
+
   </div>
 
-  <form>
+  <form class="bg-gray-300 w-full mx-auto p-5">
     <fieldset>
       <legend>Filters</legend>
       <label for="title">Title</label>
