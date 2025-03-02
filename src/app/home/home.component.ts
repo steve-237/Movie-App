@@ -26,7 +26,4 @@ export class HomeComponent {
     this.movies$ = this.moviesService.filterMovieList(title, year);
   }
 
-  toggleFavoriteMode() {
-    this.isFavoriteMode.set(!this.isFavoriteMode());
-  }
 }

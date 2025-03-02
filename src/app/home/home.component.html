@@ -6,8 +6,9 @@
     <app-language-selector></app-language-selector>
   </div>
 
-  <div>
-    <button (click)="toggleFavoriteMode()">{{isFavoriteMode() ? 'Back to movies' : 'Favorites Movies'}}</button>
+  <div class="btn-container">
+    <button (click)="isFavoriteMode.set(false)">{{'Movies Lists'}}</button>
+    <button (click)="isFavoriteMode.set(true)">{{'Favorites Movies'}}</button>
   </div>
 
   <form>
