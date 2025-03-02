@@ -8,7 +8,7 @@ Movie-App is a web application that displays a list of movies and allows users t
 
 ## Movie detail 
 
-![image](https://github.com/user-attachments/assets/5c816306-23fd-45e3-8f5d-86d31ba48a61)
+![image](https://github.com/user-attachments/assets/477fd5bb-c0ff-44aa-8307-80c1eafeda6c)
 
 # Key Features
 ## Movie List:
