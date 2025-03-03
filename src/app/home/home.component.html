@@ -7,7 +7,6 @@
   </div>
 
   <div class="bg-gray-300 py-5">
-
     <div class="bg-white w-80 text-center container rounded mx-auto">
       <button
         class="rounded transition-all duration-200"
@@ -30,7 +29,6 @@
         {{ "Favorites Movies" }}
       </button>
     </div>
-
   </div>
 
   <form class="bg-gray-300 w-full mx-auto p-5">
@@ -53,7 +51,11 @@
     </fieldset>
   </form>
 
-  @if(isFavoriteMode()) { @for(favoriteMovie of favoriteService.getFavorites();
+  @if(isFavoriteMode()) { 
+    @if (favoriteService.getFavorites().length <= 0) {
+      <p class="text-center my-5">Nothing to display</p>
+    }
+    @for(favoriteMovie of favoriteService.getFavorites();
   track favoriteMovie.id) {
   <app-movie-item
     [movie]="favoriteMovie"
@@ -61,7 +63,8 @@
     [isFavorite]="favoriteService.isFavorite(favoriteMovie)"
     (toggleFavorite)="favoriteService.toggleFavorite(favoriteMovie)"
   />
-  } } @else { @for(movie of movies$ | async; track movie.id) {
+  }
+   } @else { @for(movie of movies$ | async; track movie.id) {
   <app-movie-item
     [movie]="movie"
     appHighlight

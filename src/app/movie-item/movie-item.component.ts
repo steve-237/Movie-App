@@ -19,7 +19,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
           <span>Duration: {{ movie.duration | minToDuration }} </span>
         </small>
       </div>
-      <button [routerLink]="'details/'+ movie.id">Details</button>
+      <button class="bg-gray-300" [routerLink]="'details/'+ movie.id">Details</button>
     </div>
   `,
   standalone: true,
