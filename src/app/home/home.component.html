@@ -52,11 +52,11 @@
       />
     </fieldset>
   </form>
+  
     @if(isFavoriteMode()) { @if (favoriteService.getFavorites().length <= 0) {
     <p class="text-center my-5">Nothing to display</p>
     } @for(favoriteMovie of favoriteService.getFavorites(); track
     favoriteMovie.id) {
-    <li class="list-row min-w-full ">
       <app-movie-item
         [movie]="favoriteMovie"
         appHighlight
