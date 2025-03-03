@@ -6,7 +6,7 @@
     <app-language-selector></app-language-selector>
   </div>
 
-  <div class="bg-gray-300 py-5">
+  <div class="py-5">
     <div class="bg-white w-80 text-center container rounded mx-auto">
       <button
         class="rounded transition-all duration-200"
@@ -31,11 +31,12 @@
     </div>
   </div>
 
-  <form class="bg-gray-300 w-full mx-auto p-5">
-    <fieldset>
-      <legend>Filters</legend>
+  <form class="w-full mx-auto p-5 bg-base-100 text-white">
+    <fieldset class="fieldset flex">
+      <legend class="fieldset-legend">Filters</legend>
       <label for="title">Title</label>
       <input
+      class="input"
         #titleFilter
         type="text"
         name="tilte"
@@ -43,6 +44,7 @@
       />
       <label for="releaseDate">Release year</label>
       <input
+      class="input"
         #yearFilter
         type="number"
         name="releaseDate"
@@ -50,26 +52,23 @@
       />
     </fieldset>
   </form>
-
-  @if(isFavoriteMode()) { 
-    @if (favoriteService.getFavorites().length <= 0) {
-      <p class="text-center my-5">Nothing to display</p>
-    }
-    @for(favoriteMovie of favoriteService.getFavorites();
-  track favoriteMovie.id) {
-  <app-movie-item
-    [movie]="favoriteMovie"
-    appHighlight
-    [isFavorite]="favoriteService.isFavorite(favoriteMovie)"
-    (toggleFavorite)="favoriteService.toggleFavorite(favoriteMovie)"
-  />
-  }
-   } @else { @for(movie of movies$ | async; track movie.id) {
-  <app-movie-item
-    [movie]="movie"
-    appHighlight
-    [isFavorite]="favoriteService.isFavorite(movie)"
-    (toggleFavorite)="favoriteService.toggleFavorite(movie)"
-  />
-  } }
+    @if(isFavoriteMode()) { @if (favoriteService.getFavorites().length <= 0) {
+    <p class="text-center my-5">Nothing to display</p>
+    } @for(favoriteMovie of favoriteService.getFavorites(); track
+    favoriteMovie.id) {
+    <li class="list-row min-w-full ">
+      <app-movie-item
+        [movie]="favoriteMovie"
+        appHighlight
+        [isFavorite]="favoriteService.isFavorite(favoriteMovie)"
+        (toggleFavorite)="favoriteService.toggleFavorite(favoriteMovie)"
+      />
+    } } @else { @for(movie of movies$ | async; track movie.id) {
+      <app-movie-item
+        [movie]="movie"
+        appHighlight
+        [isFavorite]="favoriteService.isFavorite(movie)"
+        (toggleFavorite)="favoriteService.toggleFavorite(movie)"
+      />
+    } }
 </div>
