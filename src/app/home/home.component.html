@@ -7,12 +7,12 @@
   </div>
 
   <div class="py-5">
-    <div class="bg-white w-80 text-center container rounded mx-auto">
+    <div class="w-80 text-center container rounded mx-auto">
       <button
         class="rounded transition-all duration-200"
         [ngClass]="{
           'bg-gray-300 text-slate-900': !isFavoriteMode(),
-          'bg-transparent text-slate-900': isFavoriteMode()
+          'bg-transparent text-white': isFavoriteMode()
         }"
         (click)="isFavoriteMode.set(false)"
       >
@@ -22,7 +22,7 @@
         class="rounded transition-all duration-200"
         [ngClass]="{
           'bg-gray-300 text-slate-900': isFavoriteMode(),
-          'bg-transparent text-slate-900': !isFavoriteMode()
+          'bg-transparent text-white': !isFavoriteMode()
         }"
         (click)="isFavoriteMode.set(true)"
       >
@@ -52,7 +52,7 @@
       />
     </fieldset>
   </form>
-  
+
     @if(isFavoriteMode()) { @if (favoriteService.getFavorites().length <= 0) {
     <p class="text-center my-5">Nothing to display</p>
     } @for(favoriteMovie of favoriteService.getFavorites(); track
