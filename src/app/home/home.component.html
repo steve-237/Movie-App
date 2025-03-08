@@ -32,43 +32,61 @@
   </div>
 
   <form class="w-full mx-auto p-5 bg-base-100 text-white">
-    <fieldset class="fieldset flex">
-      <legend class="fieldset-legend">Filters</legend>
-      <label for="title">Title</label>
-      <input
-      class="input"
-        #titleFilter
-        type="text"
-        name="tilte"
-        (input)="filter(titleFilter.value, yearFilter.value)"
-      />
-      <label for="releaseDate">Release year</label>
-      <input
-      class="input"
-        #yearFilter
-        type="number"
-        name="releaseDate"
-        (input)="filter(titleFilter.value, yearFilter.value)"
-      />
-    </fieldset>
+    <h2 class="text-base/7 font-semibold">Filter</h2>
+    <p class="mt-1 text-sm/6">
+      Filter the movie list based on title, and/other release year.
+    </p>
+    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+      <div class="sm:col-span-3">
+        <label for="title" class="block text-sm/6 font-medium">Title</label>
+        <div class="mt-2">
+          <input
+            #titleFilter
+            (input)="filter(titleFilter.value, yearFilter.value)"
+            type="text"
+            name="title"
+            id="title"
+            autocomplete="title"
+            class="input block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+          />
+        </div>
+      </div>
+
+      <div class="sm:col-span-3">
+        <label for="releaseDate" class="block text-sm/6 font-medium"
+          >Release year</label
+        >
+        <div class="mt-2">
+          <input
+            type="text"
+            name="releaseDate"
+            id="releaseDate"
+            autocomplete="releaseDate"
+            #yearFilter
+            (input)="filter(titleFilter.value, yearFilter.value)"
+            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+          />
+        </div>
+      </div>
+    </div>
   </form>
 
-    @if(isFavoriteMode()) { @if (favoriteService.getFavorites().length <= 0) {
-    <p class="text-center my-5">Nothing to display</p>
-    } @for(favoriteMovie of favoriteService.getFavorites(); track
-    favoriteMovie.id) {
-      <app-movie-item
-        [movie]="favoriteMovie"
-        appHighlight
-        [isFavorite]="favoriteService.isFavorite(favoriteMovie)"
-        (toggleFavorite)="favoriteService.toggleFavorite(favoriteMovie)"
-      />
-    } } @else { @for(movie of movies$ | async; track movie.id) {
-      <app-movie-item
-        [movie]="movie"
-        appHighlight
-        [isFavorite]="favoriteService.isFavorite(movie)"
-        (toggleFavorite)="favoriteService.toggleFavorite(movie)"
-      />
-    } }
+  @if(isFavoriteMode()) { @if (favoriteService.getFavorites().length <= 0) {
+  <p class="text-center my-5">Nothing to display</p>
+  } @for(favoriteMovie of favoriteService.getFavorites(); track
+  favoriteMovie.id) {
+  <app-movie-item
+    [movie]="favoriteMovie"
+    appHighlight
+    [isFavorite]="favoriteService.isFavorite(favoriteMovie)"
+    (toggleFavorite)="favoriteService.toggleFavorite(favoriteMovie)"
+  />
+  } } @else { @for(movie of movies$ | async; track movie.id) {
+  <app-movie-item
+    [movie]="movie"
+    appHighlight
+    [isFavorite]="favoriteService.isFavorite(movie)"
+    (toggleFavorite)="favoriteService.toggleFavorite(movie)"
+  />
+  } }
 </div>
