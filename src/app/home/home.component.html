@@ -1,70 +1,80 @@
 <div class="container">
-  <div
-    style="display: flex; flex-direction: row; justify-content: space-between"
-  >
-    <h1>{{ "name" | transloco }}</h1>
+  <div class="flex m-10">
+    <h1 class="text-lg">{{ "name" | transloco }}</h1>
+    <div class="py-1/2 bg-slate-600 w-80 rounded-md m-auto">
+      <div class="w-80 text-center container rounded mx-auto">
+        <button
+          class="rounded-md transition-all duration-200"
+          [ngClass]="{
+            'bg-gray-300 text-slate-900': !isFavoriteMode(),
+            'bg-transparent text-white': isFavoriteMode()
+          }"
+          (click)="isFavoriteMode.set(false)"
+        >
+          {{ "Movies Lists" }}
+        </button>
+        <button
+          class="rounded-md transition-all duration-200"
+          [ngClass]="{
+            'bg-gray-300 text-slate-900': isFavoriteMode(),
+            'bg-transparent text-white': !isFavoriteMode()
+          }"
+          (click)="isFavoriteMode.set(true)"
+        >
+          {{ "Favorites Movies" }}
+        </button>
+      </div>
+    </div>
     <app-language-selector></app-language-selector>
   </div>
 
-  <div class="bg-gray-300 py-5">
-    <div class="bg-white w-80 text-center container rounded mx-auto">
-      <button
-        class="rounded transition-all duration-200"
-        [ngClass]="{
-          'bg-gray-300 text-slate-900': !isFavoriteMode(),
-          'bg-transparent text-slate-900': isFavoriteMode()
-        }"
-        (click)="isFavoriteMode.set(false)"
-      >
-        {{ "Movies Lists" }}
-      </button>
-      <button
-        class="rounded transition-all duration-200"
-        [ngClass]="{
-          'bg-gray-300 text-slate-900': isFavoriteMode(),
-          'bg-transparent text-slate-900': !isFavoriteMode()
-        }"
-        (click)="isFavoriteMode.set(true)"
-      >
-        {{ "Favorites Movies" }}
-      </button>
-    </div>
-  </div>
+  <form class="w-full border-none mx-auto p-2 bg-base-100 text-white">
+    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+      <div class="sm:col-span-3">
+        <label for="title" class="block text-sm/6 font-medium">Title</label>
+        <div>
+          <input
+            #titleFilter
+            (input)="filter(titleFilter.value, yearFilter.value)"
+            type="text"
+            name="title"
+            id="title"
+            autocomplete="title"
+            class="input block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+          />
+        </div>
+      </div>
 
-  <form class="bg-gray-300 w-full mx-auto p-5">
-    <fieldset>
-      <legend>Filters</legend>
-      <label for="title">Title</label>
-      <input
-        #titleFilter
-        type="text"
-        name="tilte"
-        (input)="filter(titleFilter.value, yearFilter.value)"
-      />
-      <label for="releaseDate">Release year</label>
-      <input
-        #yearFilter
-        type="number"
-        name="releaseDate"
-        (input)="filter(titleFilter.value, yearFilter.value)"
-      />
-    </fieldset>
+      <div class="sm:col-span-3">
+        <label for="releaseDate" class="block text-sm/6 font-medium"
+          >Release year</label
+        >
+        <div>
+          <input
+            type="text"
+            name="releaseDate"
+            id="releaseDate"
+            autocomplete="releaseDate"
+            #yearFilter
+            (input)="filter(titleFilter.value, yearFilter.value)"
+            class="input block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+          />
+        </div>
+      </div>
+    </div>
   </form>
 
-  @if(isFavoriteMode()) { 
-    @if (favoriteService.getFavorites().length <= 0) {
-      <p class="text-center my-5">Nothing to display</p>
-    }
-    @for(favoriteMovie of favoriteService.getFavorites();
-  track favoriteMovie.id) {
+  @if(isFavoriteMode()) { @if (favoriteService.getFavorites().length <= 0) {
+  <p class="text-center my-5">Nothing to display</p>
+  } @for(favoriteMovie of favoriteService.getFavorites(); track
+  favoriteMovie.id) {
   <app-movie-item
     [movie]="favoriteMovie"
     appHighlight
     [isFavorite]="favoriteService.isFavorite(favoriteMovie)"
     (toggleFavorite)="favoriteService.toggleFavorite(favoriteMovie)"
   />
-  }
-   } @else { @for(movie of movies$ | async; track movie.id) {
+  } } @else { @for(movie of movies$ | async; track movie.id) {
   <app-movie-item
     [movie]="movie"
     appHighlight
