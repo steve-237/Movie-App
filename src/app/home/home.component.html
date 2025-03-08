@@ -1,45 +1,38 @@
 <div class="container">
-  <div
-    style="display: flex; flex-direction: row; justify-content: space-between"
-  >
-    <h1>{{ "name" | transloco }}</h1>
+  <div class="flex m-10">
+    <h1 class="text-lg">{{ "name" | transloco }}</h1>
+    <div class="py-1/2 bg-slate-600 w-80 rounded-md m-auto">
+      <div class="w-80 text-center container rounded mx-auto">
+        <button
+          class="rounded-md transition-all duration-200"
+          [ngClass]="{
+            'bg-gray-300 text-slate-900': !isFavoriteMode(),
+            'bg-transparent text-white': isFavoriteMode()
+          }"
+          (click)="isFavoriteMode.set(false)"
+        >
+          {{ "Movies Lists" }}
+        </button>
+        <button
+          class="rounded-md transition-all duration-200"
+          [ngClass]="{
+            'bg-gray-300 text-slate-900': isFavoriteMode(),
+            'bg-transparent text-white': !isFavoriteMode()
+          }"
+          (click)="isFavoriteMode.set(true)"
+        >
+          {{ "Favorites Movies" }}
+        </button>
+      </div>
+    </div>
     <app-language-selector></app-language-selector>
   </div>
 
-  <div class="py-5">
-    <div class="w-80 text-center container rounded mx-auto">
-      <button
-        class="rounded transition-all duration-200"
-        [ngClass]="{
-          'bg-gray-300 text-slate-900': !isFavoriteMode(),
-          'bg-transparent text-white': isFavoriteMode()
-        }"
-        (click)="isFavoriteMode.set(false)"
-      >
-        {{ "Movies Lists" }}
-      </button>
-      <button
-        class="rounded transition-all duration-200"
-        [ngClass]="{
-          'bg-gray-300 text-slate-900': isFavoriteMode(),
-          'bg-transparent text-white': !isFavoriteMode()
-        }"
-        (click)="isFavoriteMode.set(true)"
-      >
-        {{ "Favorites Movies" }}
-      </button>
-    </div>
-  </div>
-
-  <form class="w-full mx-auto p-5 bg-base-100 text-white">
-    <h2 class="text-base/7 font-semibold">Filter</h2>
-    <p class="mt-1 text-sm/6">
-      Filter the movie list based on title, and/other release year.
-    </p>
-    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+  <form class="w-full border-none mx-auto p-2 bg-base-100 text-white">
+    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
       <div class="sm:col-span-3">
         <label for="title" class="block text-sm/6 font-medium">Title</label>
-        <div class="mt-2">
+        <div>
           <input
             #titleFilter
             (input)="filter(titleFilter.value, yearFilter.value)"
@@ -56,7 +49,7 @@
         <label for="releaseDate" class="block text-sm/6 font-medium"
           >Release year</label
         >
-        <div class="mt-2">
+        <div>
           <input
             type="text"
             name="releaseDate"
@@ -64,7 +57,7 @@
             autocomplete="releaseDate"
             #yearFilter
             (input)="filter(titleFilter.value, yearFilter.value)"
-            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+            class="input block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
           />
         </div>
       </div>
