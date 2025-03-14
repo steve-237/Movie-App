@@ -29,9 +29,9 @@
   </div>
 
   <form class="w-full border-none mx-auto p-2 bg-base-100 text-white">
-    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-      <div class="sm:col-span-3">
-        <label for="title" class="block text-sm/6 font-medium">Title</label>
+    <div class="flex flex-col sm:flex-row sm:space-x-4 w-full justify-center">
+      <div class="sm:w-1/2">
+        <label for="title" class="block text-sm font-medium">Title</label>
         <div>
           <input
             #titleFilter
@@ -40,13 +40,16 @@
             name="title"
             id="title"
             autocomplete="title"
-            class="input block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+            placeholder="Enter movie title"
+            class="input w-full"
           />
+          <!-- class="input block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" -->
+
         </div>
       </div>
 
-      <div class="sm:col-span-3">
-        <label for="releaseDate" class="block text-sm/6 font-medium"
+      <div class="sm:w-1/2">
+        <label for="releaseDate" class="block text-sm font-medium"
           >Release year</label
         >
         <div>
@@ -54,32 +57,51 @@
             type="text"
             name="releaseDate"
             id="releaseDate"
+            placeholder="Enter release year"
             autocomplete="releaseDate"
             #yearFilter
             (input)="filter(titleFilter.value, yearFilter.value)"
-            class="input block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+            class="input w-full"
           />
+                      <!-- class="input block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" -->
         </div>
       </div>
     </div>
   </form>
+  <ul class="list !flex bg-base-100 rounded-box shadow-md w-full">
+    @if(isFavoriteMode()) {
+    <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+      Most favorites watched movies this week
+    </li>
+    @if (favoriteService.getFavorites().length <= 0) {
+    <li><p class="text-center my-5">Nothing to display</p></li>
+    } @for(favoriteMovie of favoriteService.getFavorites(); track
+    favoriteMovie.id) {
+    <li class="list-row !flex">
+      <app-movie-item
+        class="w-full"
+        [movie]="favoriteMovie"
+        appHighlight
+        [isFavorite]="favoriteService.isFavorite(favoriteMovie)"
+        (toggleFavorite)="favoriteService.toggleFavorite(favoriteMovie)"
+      />
+    </li>
 
-  @if(isFavoriteMode()) { @if (favoriteService.getFavorites().length <= 0) {
-  <p class="text-center my-5">Nothing to display</p>
-  } @for(favoriteMovie of favoriteService.getFavorites(); track
-  favoriteMovie.id) {
-  <app-movie-item
-    [movie]="favoriteMovie"
-    appHighlight
-    [isFavorite]="favoriteService.isFavorite(favoriteMovie)"
-    (toggleFavorite)="favoriteService.toggleFavorite(favoriteMovie)"
-  />
-  } } @else { @for(movie of movies$ | async; track movie.id) {
-  <app-movie-item
-    [movie]="movie"
-    appHighlight
-    [isFavorite]="favoriteService.isFavorite(movie)"
-    (toggleFavorite)="favoriteService.toggleFavorite(movie)"
-  />
-  } }
+    } } @else {
+    <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+      Most watched movies this week
+    </li>
+    @for(movie of movies$ | async; track movie.id) {
+    <li class="list-row flex !important">
+      <app-movie-item
+        class="w-full"
+        [movie]="movie"
+        appHighlight
+        [isFavorite]="favoriteService.isFavorite(movie)"
+        (toggleFavorite)="favoriteService.toggleFavorite(movie)"
+      />
+    </li>
+
+    } }
+  </ul>
 </div>
