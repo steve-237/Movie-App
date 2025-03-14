@@ -76,8 +76,9 @@
     @if (favoriteService.getFavorites().length <= 0) {
     <li><p class="text-center my-5">Nothing to display</p></li>
     } @for(favoriteMovie of favoriteService.getFavorites(); track
-    favoriteMovie.id) {
+    favoriteMovie.id; let i = $index) {
     <li class="list-row !flex">
+      <div class="text-4xl font-thin opacity-30 tabular-nums w-16">0{{i}}</div>
       <app-movie-item
         class="w-full"
         [movie]="favoriteMovie"
@@ -91,8 +92,9 @@
     <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
       Most watched movies this week
     </li>
-    @for(movie of movies$ | async; track movie.id) {
-    <li class="list-row flex !important">
+    @for(movie of movies$ | async; track movie.id; let i = $index) {
+    <li class="list-row flex">
+      <div class="text-4xl font-thin opacity-30 tabular-nums w-16">0{{i}}</div>
       <app-movie-item
         class="w-full"
         [movie]="movie"
