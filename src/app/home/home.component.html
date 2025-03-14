@@ -63,23 +63,40 @@
       </div>
     </div>
   </form>
+  <ul class="list !flex bg-base-100 rounded-box shadow-md w-full">
+    @if(isFavoriteMode()) {
+    <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+      Most favorites watched movies this week
+    </li>
+    @if (favoriteService.getFavorites().length <= 0) {
+    <li><p class="text-center my-5">Nothing to display</p></li>
+    } @for(favoriteMovie of favoriteService.getFavorites(); track
+    favoriteMovie.id) {
+    <li class="list-row !flex">
+      <app-movie-item
+        class="w-full"
+        [movie]="favoriteMovie"
+        appHighlight
+        [isFavorite]="favoriteService.isFavorite(favoriteMovie)"
+        (toggleFavorite)="favoriteService.toggleFavorite(favoriteMovie)"
+      />
+    </li>
 
-  @if(isFavoriteMode()) { @if (favoriteService.getFavorites().length <= 0) {
-  <p class="text-center my-5">Nothing to display</p>
-  } @for(favoriteMovie of favoriteService.getFavorites(); track
-  favoriteMovie.id) {
-  <app-movie-item
-    [movie]="favoriteMovie"
-    appHighlight
-    [isFavorite]="favoriteService.isFavorite(favoriteMovie)"
-    (toggleFavorite)="favoriteService.toggleFavorite(favoriteMovie)"
-  />
-  } } @else { @for(movie of movies$ | async; track movie.id) {
-  <app-movie-item
-    [movie]="movie"
-    appHighlight
-    [isFavorite]="favoriteService.isFavorite(movie)"
-    (toggleFavorite)="favoriteService.toggleFavorite(movie)"
-  />
-  } }
+    } } @else {
+    <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+      Most watched movies this week
+    </li>
+    @for(movie of movies$ | async; track movie.id) {
+    <li class="list-row flex !important">
+      <app-movie-item
+        class="w-full"
+        [movie]="movie"
+        appHighlight
+        [isFavorite]="favoriteService.isFavorite(movie)"
+        (toggleFavorite)="favoriteService.toggleFavorite(movie)"
+      />
+    </li>
+
+    } }
+  </ul>
 </div>

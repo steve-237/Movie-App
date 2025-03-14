@@ -6,22 +6,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-movie-item',
-  template: `
-    <div class="movie-item">
-      <div>
-        <h4>
-          <span class="icon-star" [class.active]="isFavorite()" (click)="toggleFavorite.emit(movie)"></span>
-          {{ movie.title }}
-        </h4>
-        <small class="subtitle">
-          <span>Release date: {{ movie.release_date }}</span>
-          <span>Budget: {{ movie.budget | millionDollar }} </span>
-          <span>Duration: {{ movie.duration | minToDuration }} </span>
-        </small>
-      </div>
-      <button class="btn btn-soft btn-primary" [routerLink]="'details/'+ movie.id">Details</button>
-    </div>
-  `,
+  templateUrl: './movie-item.component.html',
   standalone: true,
   styleUrls: [ 'movie-item.component.scss' ],
   imports: [
